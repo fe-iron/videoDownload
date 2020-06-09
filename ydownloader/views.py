@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from pytube import YouTube
+import os
 
 # Create your views here.
 def greetings(request):
@@ -26,20 +27,17 @@ def download(request):
 
 def downloading(request):
 	if request.method == 'POST':
-		SAVE_PATH = "C:/"
+		homedir = os.path.expanduser("~")
+		dirs = homedir + '\Downloads'
 		formatRadio = request.POST['formatRadio']
+		# print(dirs)
 		if formatRadio != "audio":
 			qualityRadio = request.POST['qualityRadio']
 		video_url_d = request.POST['video_url_d']
-		#print(formatRadio)
-		# print(qualityRadio)
 		yt = YouTube(video_url_d)
-		#print(yt)
-		#print("Downloading start ....")
 		if formatRadio == "audio":
 			yt.streams.filter(type = formatRadio).last().download()
 		else:
-			yt.streams.filter(type = formatRadio,resolution=qualityRadio).first().download(SAVE_PATH)
-		#print("Downloding completed")
-	res = render(request,'ydownloader/home.html',{"msg":"downloading completed"})
+			yt.streams.filter(type = formatRadio,resolution=qualityRadio).first().download(dirs)
+	res = render(request,'ydownloader/home.html',{"msg":"downloading completed. Check your Download directory!"})
 	return res
