@@ -38,6 +38,6 @@ def downloading(request):
 		if formatRadio == "audio":
 			yt.streams.filter(type = formatRadio).last().download()
 		else:
-			homedir = yt.streams.filter(type = formatRadio,resolution=qualityRadio).first().download()
+			homedir = yt.streams.filter(type = formatRadio,resolution=qualityRadio).first().download("/Downloads")
 	res = render(request,'ydownloader/home.html',{"msg":"downloading completed. Check your Download directory!", 'loca':homedir})
 	return res
