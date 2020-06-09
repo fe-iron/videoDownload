@@ -27,8 +27,8 @@ def download(request):
 
 def downloading(request):
 	if request.method == 'POST':
-		homedir = os.path.expanduser("~")
-		dirs = homedir + '\Downloads'
+		# homedir = os.path.expanduser("~")
+		# dirs = homedir + '\Downloads'
 		formatRadio = request.POST['formatRadio']
 		# print(dirs)
 		if formatRadio != "audio":
@@ -38,6 +38,6 @@ def downloading(request):
 		if formatRadio == "audio":
 			yt.streams.filter(type = formatRadio).last().download()
 		else:
-			yt.streams.filter(type = formatRadio,resolution=qualityRadio).first().download(dirs)
-	res = render(request,'ydownloader/home.html',{"msg":"downloading completed. Check your Download directory!"})
+			homedir = yt.streams.filter(type = formatRadio,resolution=qualityRadio).first().download()
+	res = render(request,'ydownloader/home.html',{"msg":"downloading completed. Check your Download directory!", 'loca':homedir})
 	return res
