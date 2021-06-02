@@ -11,5 +11,5 @@ request==2019.4.13
 requests==2.23.0
 service-identity==18.1.0
 sqlparse==0.3.1
-urllib3==1.25.8
+urllib3==1.26.5
 whitenoise==5.1.0
